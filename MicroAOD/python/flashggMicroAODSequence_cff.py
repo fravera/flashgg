@@ -33,7 +33,7 @@ weightsCount = cms.EDProducer("WeightsCountProducer",
                               nbinsTruePileup=cms.int32(101),
                               )
 
-flashggMicroAODSequence = cms.Sequence(eventCount+weightsCount
+flashggMicroAODSequence = cms.Sequence(eventCount#+weightsCount
                                        +flashggVertexMapUnique+flashggVertexMapNonUnique
                                        +electronMVAValueMapProducer*egmGsfElectronIDs*flashggElectrons*flashggSelectedElectrons
                                        +flashggMuons*flashggSelectedMuons
