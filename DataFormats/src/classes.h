@@ -13,6 +13,7 @@
 #include "flashgg/DataFormats/interface/GenPhotonExtra.h"
 #include "flashgg/DataFormats/interface/Jet.h"
 #include "flashgg/DataFormats/interface/Photon.h"
+#include "flashgg/DataFormats/interface/Proton.h"
 #include "flashgg/DataFormats/interface/SinglePhotonView.h"
 #include "flashgg/DataFormats/interface/SingleVertexView.h"
 #include "flashgg/DataFormats/interface/TTHHadronicTag.h"
@@ -53,6 +54,13 @@ namespace  {
         edm::Wrapper<flashgg::Photon>                                 wrp_fgg_pho;
         std::vector<flashgg::Photon>                                  vec_fgg_pho;
         edm::Wrapper<std::vector<flashgg::Photon> >               wrp_vec_fgg_pho;
+        
+        flashgg::Proton                                                   fgg_pro;
+        edm::Ptr<flashgg::Proton>                                     ptr_fgg_pro;
+        edm::Wrapper<flashgg::Proton>                                 wrp_fgg_pro;
+        std::vector<flashgg::Proton>                                  vec_fgg_pro;
+        edm::Wrapper<std::vector<flashgg::Proton> >               wrp_vec_fgg_pro;
+        
         flashgg::DiPhotonCandidate                                        fgg_dip;
         edm::Wrapper<flashgg::DiPhotonCandidate>                      wrp_fgg_dip;
         std::vector<flashgg::DiPhotonCandidate>                       vec_fgg_dip;

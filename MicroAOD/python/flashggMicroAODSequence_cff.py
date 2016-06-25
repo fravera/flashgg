@@ -16,8 +16,9 @@ from PhysicsTools.SelectorUtils.centralIDRegistry import central_id_registry
 from RecoEgamma.ElectronIdentification.ElectronMVAValueMapProducer_cfi import *
 from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
 
-
 from RecoEgamma.ElectronIdentification.egmGsfElectronIDs_cfi import *
+
+from flashgg.MicroAOD.flashggProtons_cfi import flashggProtons
 
 eventCount = cms.EDProducer("EventCountProducer")
 weightsCount = cms.EDProducer("WeightsCountProducer",
@@ -41,4 +42,5 @@ flashggMicroAODSequence = cms.Sequence(eventCount#+weightsCount
                                        +flashggPhotons * flashggRandomizedPhotons * flashggDiPhotons
                                        +flashggVertexMapForCHS*flashggFinalJets
                                        +flashggVertexMapForPUPPI*flashggFinalPuppiJets
+                                       # +flashggProtons
                                        )
