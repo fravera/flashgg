@@ -59,9 +59,15 @@ bool DiProtonCandidate::ComputeDiProtonObject()
 	if( protonBackward_ == NULL || protonForward_ == NULL ) return kFALSE;
 	if( (protonBackward_->GetDirection() * protonForward_->GetDirection()) >= 0 ) return kFALSE;
 	// missingMass_ = comEnergy_*TMath::Sqrt(protonForward_.xi)
-
+    this->setP4( protonForward_->p4() + protonBackward_->p4() );
 	return kTRUE;
 }
 
+
+bool Proton::overlap( const Candidate & c ) const {
+  // const RecoCandidate * o = dynamic_cast<const RecoCandidate *>( & c );
+  // return ( o != 0 && (checkOverlap( superCluster(), o->superCluster() ) ));
+  return false;
+}
 
 

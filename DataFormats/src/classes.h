@@ -69,6 +69,15 @@ namespace  {
         edm::Wrapper<edm::Ptr<flashgg::DiPhotonCandidate> >       wrp_ptr_fgg_dip;
         std::vector<edm::Ptr<flashgg::DiPhotonCandidate> >        vec_ptr_fgg_dip;
         edm::Wrapper<std::vector<edm::Ptr<flashgg::DiPhotonCandidate> > >   wrp_vec_ptr_fgg_dip;
+        
+        flashgg::DiProtonCandidate                                        fgg_dipro;
+        edm::Wrapper<flashgg::DiProtonCandidate>                      wrp_fgg_dipro;
+        std::vector<flashgg::DiProtonCandidate>                       vec_fgg_dipro;
+        edm::Wrapper<std::vector<flashgg::DiProtonCandidate> >    wrp_vec_fgg_dipro;
+        edm::Ptr<flashgg::DiProtonCandidate>                          ptr_fgg_dipro;
+        edm::Wrapper<edm::Ptr<flashgg::DiProtonCandidate> >       wrp_ptr_fgg_dipro;
+        std::vector<edm::Ptr<flashgg::DiProtonCandidate> >        vec_ptr_fgg_dipro;
+        edm::Wrapper<std::vector<edm::Ptr<flashgg::DiProtonCandidate> > >   wrp_vec_ptr_fgg_dip;
 
         edm::Ref<std::vector<flashgg::Photon>,flashgg::Photon,edm::refhelper::FindUsingAdvance<std::vector<flashgg::Photon>,flashgg::Photon> > ref_fgg_pho;
         std::vector<edm::Ref<std::vector<flashgg::Photon>,flashgg::Photon,edm::refhelper::FindUsingAdvance<std::vector<flashgg::Photon>,flashgg::Photon> > > vref_fgg_pho;

@@ -1,4 +1,5 @@
 #include "flashgg/DataFormats/interface/Proton.h"
+#include <TLorentzVector.h>
 //#include "FWCore/Utilities/interface/Exception.h"
 #include <limits>
 
@@ -31,6 +32,9 @@ void Proton::Variables(const PPSRecoTrack &reco)
   xTrackChiSquare_ = reco.xTrackChiSquare;
   yTrackChiSquare_ = reco.yTrackChiSquare;
   timeOfFlight_ = reco.timeOfFlight;
+  math::XYZTLorentzVector protonMomentum(reco.Px,reco.Py,reco.Pz,reco.E);
+  setP4(protonMomentum);
+
 }
 
 void Proton::Hits(const PPSRecoTrack &reco)
