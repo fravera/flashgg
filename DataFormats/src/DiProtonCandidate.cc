@@ -1,5 +1,6 @@
 #include "flashgg/DataFormats/interface/DiProtonCandidate.h"
 #include "flashgg/DataFormats/interface/Proton.h"
+#include "TMath.h"
 
 using namespace flashgg;
 
@@ -14,7 +15,7 @@ DiProtonCandidate::DiProtonCandidate()
     rapidity_    = -100.;
 }
 
-DiProtonCandidate::DiProtonCandidate( flashgg::Proton *protonForward, flashgg::Proton *protonBackward, double energy, edm::Ptr<reco::Vertex> vertex )
+DiProtonCandidate::DiProtonCandidate( edm::Ptr<flashgg::Proton> protonForward, edm::Ptr<flashgg::Proton> protonBackward, double energy, edm::Ptr<reco::Vertex> vertex )
 {
     //    std::cout << " DiProtonCandidate::DiProtonCandidate " << std::endl;
     protonForward_  = protonForward ;
@@ -31,7 +32,7 @@ DiProtonCandidate::DiProtonCandidate( flashgg::Proton *protonForward, flashgg::P
     
 }
 
-void DiProtonCandidate::SetProtonForward(flashgg::Proton *protonForward)
+void DiProtonCandidate::SetProtonForward(edm::Ptr<flashgg::Proton> protonForward)
 {
 	
 	protonForward_  = protonForward ;
@@ -39,7 +40,7 @@ void DiProtonCandidate::SetProtonForward(flashgg::Proton *protonForward)
     
 }
 
-void DiProtonCandidate::SetProtonBackward(flashgg::Proton *protonBackward)
+void DiProtonCandidate::SetProtonBackward(edm::Ptr<flashgg::Proton> protonBackward)
 {
 	
 	protonBackward_  = protonBackward ;
@@ -55,16 +56,29 @@ void DiProtonCandidate::SetVertex(edm::Ptr<reco::Vertex> vertex)
 
 bool DiProtonCandidate::ComputeDiProtonObject()
 {
-
-	if( protonBackward_ == NULL || protonForward_ == NULL ) return kFALSE;
+    // cout<<"computing"<<endl;
+	// if( &protonBackward_ == NULL || &protonForward_ == NULL ) return kFALSE;
+    cout<<protonForward_->eta()<<endl;
 	if( (protonBackward_->GetDirection() * protonForward_->GetDirection()) >= 0 ) return kFALSE;
+    // cout<<"direction F "<<protonForward_ ->GetDirection()<<endl;
+    // cout<<"direction B "<<protonBackward_->GetDirection()<<endl;
 	// missingMass_ = comEnergy_*TMath::Sqrt(protonForward_.xi)
-    this->setP4( protonForward_->p4() + protonBackward_->p4() );
+    // this->setP4( protonForward_->p4() + protonBackward_->p4() );
+    double xiForward  = (1.-protonForward_ ->energy()/(comEnergy_/2.));
+    double xiBackward = (1.-protonBackward_->energy()/(comEnergy_/2.));
+    // this->setMass(comEnergy_*TMath::Sqrt(xiForward*xiBackward));
+    double px = -protonForward_->px() - protonBackward_->px();
+    double py = -protonForward_->py() - protonBackward_->py();
+    double pz = -protonForward_->pz() - protonBackward_->pz();
+    double energy = comEnergy_ - protonForward_ ->energy() - protonBackward_->energy();
+    LorentzVector lv(px,py,pz,energy);
+    this->setP4(lv);
+    cout<<"mass " << this->mass()<<" = "<<comEnergy_*TMath::Sqrt(xiForward*xiBackward)<<endl;
 	return kTRUE;
 }
 
 
-bool Proton::overlap( const Candidate & c ) const {
+bool DiProtonCandidate::overlap( const Candidate & c ) const {
   // const RecoCandidate * o = dynamic_cast<const RecoCandidate *>( & c );
   // return ( o != 0 && (checkOverlap( superCluster(), o->superCluster() ) ));
   return false;

@@ -25,3 +25,7 @@ AutoDict_*
 *.log
 *.png
 *.pdf
+
+DataFormats/src/classes_def.xml.generated
+Fall15_25nsV2_DATA.db
+Fall15_25nsV2_MC.db

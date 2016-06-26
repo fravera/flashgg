@@ -23,11 +23,11 @@ namespace flashgg {
         ~Proton();
         void Variables(const PPSRecoTrack &);
         void Hits(const PPSRecoTrack &);
-        void SetDirection(short dir) { direction_ = dir;};
-        short GetDirection() { return direction_;};
+        void SetDirection(int dir) { direction_ = dir;};
+        int GetDirection() const { return direction_;};
 
     // private:
-        short        direction_; //1 = ArmForward, -1 = ArmBackward
+        int         direction_; //1 = ArmForward, -1 = ArmBackward
         float        X0_;
         float        Y0_;
         float        thetaX_;   // in urad

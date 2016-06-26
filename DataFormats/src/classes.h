@@ -6,6 +6,7 @@
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "flashgg/DataFormats/interface/GenDiPhoton.h"
 #include "flashgg/DataFormats/interface/DiPhotonCandidate.h"
+#include "flashgg/DataFormats/interface/DiProtonCandidate.h"
 #include "flashgg/DataFormats/interface/DiPhotonMVAResult.h"
 #include "flashgg/DataFormats/interface/UntaggedTag.h"
 #include "flashgg/DataFormats/interface/Electron.h"
@@ -77,7 +78,7 @@ namespace  {
         edm::Ptr<flashgg::DiProtonCandidate>                          ptr_fgg_dipro;
         edm::Wrapper<edm::Ptr<flashgg::DiProtonCandidate> >       wrp_ptr_fgg_dipro;
         std::vector<edm::Ptr<flashgg::DiProtonCandidate> >        vec_ptr_fgg_dipro;
-        edm::Wrapper<std::vector<edm::Ptr<flashgg::DiProtonCandidate> > >   wrp_vec_ptr_fgg_dip;
+        edm::Wrapper<std::vector<edm::Ptr<flashgg::DiProtonCandidate> > >   wrp_vec_ptr_fgg_dipro;
 
         edm::Ref<std::vector<flashgg::Photon>,flashgg::Photon,edm::refhelper::FindUsingAdvance<std::vector<flashgg::Photon>,flashgg::Photon> > ref_fgg_pho;
         std::vector<edm::Ref<std::vector<flashgg::Photon>,flashgg::Photon,edm::refhelper::FindUsingAdvance<std::vector<flashgg::Photon>,flashgg::Photon> > > vref_fgg_pho;

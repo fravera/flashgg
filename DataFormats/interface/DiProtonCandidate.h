@@ -2,21 +2,22 @@
 #define FLASHgg_DiProtonCandidate_h
 
 #include "DataFormats/Candidate/interface/CompositeCandidate.h"
-#include "DataFormats/Candidate/interface/ShallowCloneCandidate.h"
-#include "DataFormats/Candidate/interface/LeafCandidate.h"
+#include "DataFormats/RecoCandidate/interface/RecoCandidate.h"
+// #include "DataFormats/Candidate/interface/ShallowCloneCandidate.h"
+// #include "DataFormats/Candidate/interface/LeafCandidate.h"
 #include "flashgg/DataFormats/interface/Proton.h"
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "flashgg/DataFormats/interface/WeightedObject.h"
 
 namespace flashgg {
 
-    class DiProtonCandidate : public reco::LeafCandidate , public WeightedObject
+    class DiProtonCandidate : public reco::RecoCandidate , public WeightedObject
     {
     public:
         DiProtonCandidate();
-        DiProtonCandidate( flashgg::Proton*, flashgg::Proton*, double, edm::Ptr<reco::Vertex> );
-        void SetProtonForward (flashgg::Proton *proton);// { protonForward_  = proton;};
-        void SetProtonBackward(flashgg::Proton *proton);// { protonBackward_ = proton;};
+        DiProtonCandidate( edm::Ptr<flashgg::Proton>, edm::Ptr<flashgg::Proton>, double, edm::Ptr<reco::Vertex> );
+        void SetProtonForward (edm::Ptr<flashgg::Proton> proton);// { protonForward_  = proton;};
+        void SetProtonBackward(edm::Ptr<flashgg::Proton> proton);// { protonBackward_ = proton;};
         void SetComEnergy(double energy) {comEnergy_ = energy;};
         void SetVertex( edm::Ptr<reco::Vertex> vertex);// { CTPPSVertex_ = vertex;};
         bool ComputeDiProtonObject();
@@ -27,13 +28,14 @@ namespace flashgg {
     	bool doubleTrackingHitArmBackward_;
         bool vertexFound_;
 
-        flashgg::Proton *protonForward_ ;
-        flashgg::Proton *protonBackward_;
+        edm::Ptr<flashgg::Proton> protonForward_ ;
+        edm::Ptr<flashgg::Proton> protonBackward_;
         edm::Ptr<reco::Vertex> CTPPSVertex_;
 
         double missingMass_;
         double rapidity_   ;
         double comEnergy_  ;
+        virtual bool overlap( const Candidate & ) const;
 
 	};
 }
