@@ -137,6 +137,7 @@
 </class>
 
 <class name="flashgg::DiProtonCandidate" ClassVersion="0">
+   <field name="missingMass_"/>
 </class>
 <class name="std::vector<flashgg::DiProtonCandidate>"/>
 <class name="edm::Wrapper<std::vector<flashgg::DiProtonCandidate> >"/>

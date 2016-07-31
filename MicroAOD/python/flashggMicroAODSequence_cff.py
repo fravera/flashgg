@@ -20,6 +20,7 @@ from RecoEgamma.ElectronIdentification.egmGsfElectronIDs_cfi import *
 
 from flashgg.MicroAOD.flashggProtons_cfi import flashggProtons
 from flashgg.MicroAOD.flashggDiProtons_cfi import flashggDiProtons
+from flashgg.MicroAOD.flashggDiProtonDiPhoton_cfi import flashggDiProtonDiPhoton
 
 eventCount = cms.EDProducer("EventCountProducer")
 weightsCount = cms.EDProducer("WeightsCountProducer",
@@ -44,4 +45,5 @@ flashggMicroAODSequence = cms.Sequence(eventCount#+weightsCount
                                        +flashggVertexMapForCHS*flashggFinalJets
                                        +flashggVertexMapForPUPPI*flashggFinalPuppiJets
                                        +flashggProtons * flashggDiProtons
+                                       +flashggDiProtonDiPhoton
                                        )

@@ -11,7 +11,7 @@ process.load("Configuration.StandardSequences.MagneticField_cff")
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 from Configuration.AlCa.GlobalTag import GlobalTag
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32( -1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32( 10) )
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 10 )
 
 import os
@@ -66,8 +66,10 @@ process.RandomNumberGeneratorService.flashggRandomizedPhotons = cms.PSet(
 #process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring("/store/mc/RunIISpring15MiniAODv2/GluGluHToGG_M-125_13TeV_powheg_pythia8/MINIAODSIM/74X_mcRun2_asymptotic_v2-v1/50000/048F7B0F-0A6E-E511-B710-00259073E37A.root"))
 #process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring("/store/mc/RunIIFall15DR76/GluGluHToGG_M-125_13TeV_powheg_pythia8/MINIAODSIM/25nsFlat10to25TSG_76X_mcRun2_asymptotic_v12-v1/00000/0C6C1B51-9198-E511-B305-002590747D94.root"))
 
-process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring("file:../../../MyFastSimulation/CMSSW_8_0_2/src/miniAOD_prova_1kEvents_PU.root"))
-
+process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring(
+   #"file:../../../MyFastSimulation/CMSSW_8_0_2/src/miniAOD_prova_1kEvents_noPU.root"
+   "file:/afs/cern.ch/user/m/monteno/public/miniAOD_prova_10Events.root"
+   ))
 #80x
 #process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring("/store/mc/RunIISpring16MiniAODv2/GluGluHToGG_M-125_13TeV_powheg_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/70000/083E0403-2825-E611-89C4-0CC47A6C1038.root"))
 
@@ -87,7 +89,7 @@ process.load("flashgg/MicroAOD/flashggMicroAODSequence_cff")
 #process.weightsCount.pileupInfo = "addPileupInfo"
 
 from flashgg.MicroAOD.flashggMicroAODOutputCommands_cff import microAODDefaultOutputCommand
-process.out = cms.OutputModule("PoolOutputModule", fileName = cms.untracked.string('myMicroAODOutputFile_PU.root'),
+process.out = cms.OutputModule("PoolOutputModule", fileName = cms.untracked.string('myMicroAODOutputFile_AddedDiPhoDiPro.root'),
                                outputCommands = microAODDefaultOutputCommand
                                )
 

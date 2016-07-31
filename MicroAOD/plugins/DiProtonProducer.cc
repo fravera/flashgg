@@ -67,7 +67,9 @@ namespace flashgg {
 
                 if(directionProton1*directionProton2 >=0 ) continue;
                 dipro.SetComEnergy(ComEnergy_);
-                if(dipro.ComputeDiProtonObject()) diProtonColl->push_back( dipro );
+                bool foundDiProtonCandidate = dipro.ComputeDiProtonObject();
+                if(foundDiProtonCandidate) diProtonColl->push_back( dipro );
+                cout<<"Missing mass "<<dipro.GetMissingMass()<<endl;
             }
         }
 
