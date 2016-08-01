@@ -104,14 +104,23 @@
 <class name="edm::Wrapper<std::vector<flashgg::VHHadronicTag> >"/>
 <class name="edm::Ptr<flashgg::DiPhotonTagBase>"/>
 <class name="edm::Wrapper<edm::Ptr<flashgg::DiPhotonTagBase> >"/>
-<class name="edm::Ptr<reco::Vertex>"/> 
-<class name="std::vector<edm::Ptr<reco::Vertex> >"/> 
+<class name="edm::Ptr<reco::Vertex>"/>
+<class name="std::vector<edm::Ptr<reco::Vertex> >"/>
+
 <class name="flashgg::Photon" ClassVersion="10">
   <version ClassVersion="10" checksum="563539605"/>
 </class>
 <class name="edm::Ptr<flashgg::Photon>"/>
 <class name="std::vector<flashgg::Photon>"/>
 <class name="edm::Wrapper<std::vector<flashgg::Photon> >"/>
+
+<class name="flashgg::Proton" ClassVersion="0">
+  <!-- <version ClassVersion="1" checksum="271624564"/> -->
+</class>
+<class name="edm::Ptr<flashgg::Proton>"/>
+<class name="std::vector<flashgg::Proton>"/>
+<class name="edm::Wrapper<std::vector<flashgg::Proton> >"/>
+
 <class name="flashgg::DiPhotonCandidate" ClassVersion="11">
   <version ClassVersion="10" checksum="2243573479"/>
   <version ClassVersion="11" checksum="3086156793"/>
@@ -126,6 +135,25 @@
     <version ClassVersion="10" checksum="3743016204"/>
     <version ClassVersion="11" checksum="3762840980"/>
 </class>
+
+<class name="flashgg::DiProtonCandidate" ClassVersion="0">
+   <field name="missingMass_"/>
+</class>
+<class name="std::vector<flashgg::DiProtonCandidate>"/>
+<class name="edm::Wrapper<std::vector<flashgg::DiProtonCandidate> >"/>
+<class name="edm::Ptr<flashgg::DiProtonCandidate>"/>
+<class name="edm::Wrapper<edm::Ptr<flashgg::DiProtonCandidate> >"/>
+<class name="std::vector<edm::Ptr<flashgg::DiProtonCandidate> >"/>
+<class name="edm::Wrapper<std::vector<edm::Ptr<flashgg::DiProtonCandidate> > >"/>
+
+<class name="flashgg::DiProtonDiPhoton" ClassVersion="0">
+</class>
+<class name="std::vector<flashgg::DiProtonDiPhoton>"/>
+<class name="edm::Wrapper<std::vector<flashgg::DiProtonDiPhoton> >"/>
+<class name="edm::Ptr<flashgg::DiProtonDiPhoton>"/>
+<class name="edm::Wrapper<edm::Ptr<flashgg::DiProtonDiPhoton> >"/>
+<class name="std::vector<edm::Ptr<flashgg::DiProtonDiPhoton> >"/>
+<class name="edm::Wrapper<std::vector<edm::Ptr<flashgg::DiProtonDiPhoton> > >"/>
 
 <class name="edm::Wrapper<flashgg::DiPhotonMVAResult>"/>
 <class name="std::pair<edm::Ptr<flashgg::DiPhotonCandidate>,flashgg::DiPhotonMVAResult>"/>

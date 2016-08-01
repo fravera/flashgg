@@ -6,6 +6,8 @@
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "flashgg/DataFormats/interface/GenDiPhoton.h"
 #include "flashgg/DataFormats/interface/DiPhotonCandidate.h"
+#include "flashgg/DataFormats/interface/DiProtonCandidate.h"
+#include "flashgg/DataFormats/interface/DiProtonDiPhoton.h"
 #include "flashgg/DataFormats/interface/DiPhotonMVAResult.h"
 #include "flashgg/DataFormats/interface/UntaggedTag.h"
 #include "flashgg/DataFormats/interface/Electron.h"
@@ -13,6 +15,7 @@
 #include "flashgg/DataFormats/interface/GenPhotonExtra.h"
 #include "flashgg/DataFormats/interface/Jet.h"
 #include "flashgg/DataFormats/interface/Photon.h"
+#include "flashgg/DataFormats/interface/Proton.h"
 #include "flashgg/DataFormats/interface/SinglePhotonView.h"
 #include "flashgg/DataFormats/interface/SingleVertexView.h"
 #include "flashgg/DataFormats/interface/TTHHadronicTag.h"
@@ -40,7 +43,7 @@
 namespace  {
     struct dictionary {
         flashgg::WeightedObject                                             fgg_obj;
-        
+
         flashgg::PDFWeightObject                                             fgg_pobj;
         edm::Ptr<flashgg::PDFWeightObject>                                ptr_fgg_pobj;
         edm::Wrapper<flashgg::PDFWeightObject>                            wrp_fgg_pobj;
@@ -53,6 +56,13 @@ namespace  {
         edm::Wrapper<flashgg::Photon>                                 wrp_fgg_pho;
         std::vector<flashgg::Photon>                                  vec_fgg_pho;
         edm::Wrapper<std::vector<flashgg::Photon> >               wrp_vec_fgg_pho;
+
+        flashgg::Proton                                                   fgg_pro;
+        edm::Ptr<flashgg::Proton>                                     ptr_fgg_pro;
+        edm::Wrapper<flashgg::Proton>                                 wrp_fgg_pro;
+        std::vector<flashgg::Proton>                                  vec_fgg_pro;
+        edm::Wrapper<std::vector<flashgg::Proton> >               wrp_vec_fgg_pro;
+
         flashgg::DiPhotonCandidate                                        fgg_dip;
         edm::Wrapper<flashgg::DiPhotonCandidate>                      wrp_fgg_dip;
         std::vector<flashgg::DiPhotonCandidate>                       vec_fgg_dip;
@@ -62,10 +72,28 @@ namespace  {
         std::vector<edm::Ptr<flashgg::DiPhotonCandidate> >        vec_ptr_fgg_dip;
         edm::Wrapper<std::vector<edm::Ptr<flashgg::DiPhotonCandidate> > >   wrp_vec_ptr_fgg_dip;
 
+        flashgg::DiProtonCandidate                                        fgg_dipro;
+        edm::Wrapper<flashgg::DiProtonCandidate>                      wrp_fgg_dipro;
+        std::vector<flashgg::DiProtonCandidate>                       vec_fgg_dipro;
+        edm::Wrapper<std::vector<flashgg::DiProtonCandidate> >    wrp_vec_fgg_dipro;
+        edm::Ptr<flashgg::DiProtonCandidate>                          ptr_fgg_dipro;
+        edm::Wrapper<edm::Ptr<flashgg::DiProtonCandidate> >       wrp_ptr_fgg_dipro;
+        std::vector<edm::Ptr<flashgg::DiProtonCandidate> >        vec_ptr_fgg_dipro;
+        edm::Wrapper<std::vector<edm::Ptr<flashgg::DiProtonCandidate> > >   wrp_vec_ptr_fgg_dipro;
+
+        flashgg::DiProtonDiPhoton                                        fgg_dipro_dipho;
+        edm::Wrapper<flashgg::DiProtonDiPhoton>                      wrp_fgg_dipro_dipho;
+        std::vector<flashgg::DiProtonDiPhoton>                       vec_fgg_dipro_dipho;
+        edm::Wrapper<std::vector<flashgg::DiProtonDiPhoton> >    wrp_vec_fgg_dipro_dipho;
+        edm::Ptr<flashgg::DiProtonDiPhoton>                          ptr_fgg_dipro_dipho;
+        edm::Wrapper<edm::Ptr<flashgg::DiProtonDiPhoton> >       wrp_ptr_fgg_dipro_dipho;
+        std::vector<edm::Ptr<flashgg::DiProtonDiPhoton> >        vec_ptr_fgg_dipro_dipho;
+        edm::Wrapper<std::vector<edm::Ptr<flashgg::DiProtonDiPhoton> > >   wrp_vec_ptr_fgg_dipro_dipho;
+
         edm::Ref<std::vector<flashgg::Photon>,flashgg::Photon,edm::refhelper::FindUsingAdvance<std::vector<flashgg::Photon>,flashgg::Photon> > ref_fgg_pho;
         std::vector<edm::Ref<std::vector<flashgg::Photon>,flashgg::Photon,edm::refhelper::FindUsingAdvance<std::vector<flashgg::Photon>,flashgg::Photon> > > vref_fgg_pho;
-        edm::RefProd<std::vector<flashgg::Photon> >              rfp_fgg_pho; 
-        edm::RefVector<std::vector<flashgg::Photon>,flashgg::Photon,edm::refhelper::FindUsingAdvance<std::vector<flashgg::Photon>,flashgg::Photon> >    refv_fgg_pho; 
+        edm::RefProd<std::vector<flashgg::Photon> >              rfp_fgg_pho;
+        edm::RefVector<std::vector<flashgg::Photon>,flashgg::Photon,edm::refhelper::FindUsingAdvance<std::vector<flashgg::Photon>,flashgg::Photon> >    refv_fgg_pho;
         edm::Wrapper<edm::RefVector<std::vector<flashgg::Photon>,flashgg::Photon,edm::refhelper::FindUsingAdvance<std::vector<flashgg::Photon>,flashgg::Photon> > >  wrp_rv_fgg_pho;
 
 
@@ -273,4 +301,3 @@ namespace  {
 // c-basic-offset:4
 // End:
 // vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
-
