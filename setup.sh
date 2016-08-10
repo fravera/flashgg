@@ -13,7 +13,6 @@ else
   return 1
 fi
 
-
 echo
 echo "Welcome to the FLASHgg automagic setup script!"
 
@@ -211,3 +210,4 @@ else
   echo "Done with setup script! You still need to build!"
   echo
 fi
+

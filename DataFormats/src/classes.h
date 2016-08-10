@@ -44,7 +44,6 @@
 namespace  {
     struct dictionary {
         flashgg::WeightedObject                                             fgg_obj;
-
         flashgg::PDFWeightObject                                             fgg_pobj;
         edm::Ptr<flashgg::PDFWeightObject>                                ptr_fgg_pobj;
         edm::Wrapper<flashgg::PDFWeightObject>                            wrp_fgg_pobj;

@@ -12,6 +12,7 @@ flashggPrunedGenParticles = cms.EDProducer("GenParticlePruner",
                                                          "keep status = 22",
                                                          "keep++ pdgId = 25",
                                                          "keep++ pdgId = 2212"
+                                                         "keep++ pdgId = 25"#
                                                          )
                                     )
 

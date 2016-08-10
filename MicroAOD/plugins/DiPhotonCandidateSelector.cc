@@ -26,9 +26,19 @@
 
 #include "flashgg/MicroAOD/interface/PerPhotonMVADiPhotonPostProcess.h"
 
-typedef SingleObjectSelector <edm::View<flashgg::DiPhotonCandidate>, StringCutObjectSelector<flashgg::DiPhotonCandidate, true>, std::vector<flashgg::DiPhotonCandidate> > DiPhotonCandidateSelector;
+typedef SingleObjectSelector <
+edm::View<flashgg::DiPhotonCandidate>,
+    StringCutObjectSelector<flashgg::DiPhotonCandidate, true>,
+    std::vector<flashgg::DiPhotonCandidate>
+    > DiPhotonCandidateSelector;
 
-typedef ObjectSelectorStream <SingleElementCollectionSelectorPlusEvent <edm::View<flashgg::DiPhotonCandidate>, flashgg::CutBasedDiPhotonObjectSelector, std::vector<flashgg::DiPhotonCandidate> >,  std::vector<flashgg::DiPhotonCandidate> > GenericDiPhotonCandidateSelector;
+typedef ObjectSelectorStream <
+SingleElementCollectionSelectorPlusEvent <
+edm::View<flashgg::DiPhotonCandidate>,
+    flashgg::CutBasedDiPhotonObjectSelector,
+    std::vector<flashgg::DiPhotonCandidate>
+    >,
+    std::vector<flashgg::DiPhotonCandidate> > GenericDiPhotonCandidateSelector;
 
 
 namespace flashgg {
@@ -42,7 +52,13 @@ namespace flashgg {
     };
 };
 
-typedef ObjectSelector <SortCollectionSelector <edm::View<flashgg::DiPhotonCandidate>, flashgg::GreaterBySumpPt>, std::vector<flashgg::DiPhotonCandidate> > DiPhotonCandidateSorter;
+typedef ObjectSelector <
+SortCollectionSelector <
+edm::View<flashgg::DiPhotonCandidate>,
+    flashgg::GreaterBySumpPt
+    >,
+    std::vector<flashgg::DiPhotonCandidate>
+    > DiPhotonCandidateSorter;
 
 DEFINE_FWK_MODULE( DiPhotonCandidateSelector );
 DEFINE_FWK_MODULE( GenericDiPhotonCandidateSelector );
