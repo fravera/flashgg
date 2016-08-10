@@ -19,7 +19,8 @@ echo "Welcome to the FLASHgg automagic setup script!"
 if [ ! -f $CMSSW_BASE/src/.git/HEAD ];
 then
   echo "CMSSW area appears not to be set up correctly. Check README carefully."
-  echo
+  echo "try"
+``echo
   return 1
 fi
 
