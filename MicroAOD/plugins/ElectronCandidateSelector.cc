@@ -14,6 +14,7 @@ edm::View<flashgg::Electron>,
     std::vector<flashgg::Electron>
     > ElectronSelector;
 
+
 #include "flashgg/MicroAOD/interface/CutBasedElectronObjectSelector.h"
 typedef ObjectSelectorStream <
 SingleElementCollectionSelectorPlusEvent <
