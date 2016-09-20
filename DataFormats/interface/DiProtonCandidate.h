@@ -1,51 +1,62 @@
 #ifndef FLASHgg_DiProtonCandidate_h
 #define FLASHgg_DiProtonCandidate_h
 
-#include "DataFormats/Candidate/interface/CompositeCandidate.h"
-// #include "DataFormats/RecoCandidate/interface/RecoCandidate.h"
-// #include "DataFormats/Candidate/interface/ShallowCloneCandidate.h"
-#include "DataFormats/Candidate/interface/LeafCandidate.h"
+#include "DataFormats/Common/interface/Ptr.h"
+#include "DataFormats/Common/interface/View.h"
+//#include "DataFormats/Candidate/interface/CompositeCandidate.h" 
+//#include "CommonTools/CandUtils/interface/AddFourMomenta.h" 
 #include "flashgg/DataFormats/interface/Proton.h"
-#include "DataFormats/VertexReco/interface/Vertex.h"
 #include "flashgg/DataFormats/interface/WeightedObject.h"
 
 namespace flashgg {
 
-    class DiProtonCandidate :  public reco::LeafCandidate  , public WeightedObject
+    class DiProtonCandidate : public WeightedObject
     {
     public:
         DiProtonCandidate();
-        DiProtonCandidate( edm::Ptr<flashgg::Proton>, edm::Ptr<flashgg::Proton>, double, edm::Ptr<reco::Vertex> );
-        void SetProtonForward (edm::Ptr<flashgg::Proton> proton);// { protonForward_  = proton;};
-        void SetProtonBackward(edm::Ptr<flashgg::Proton> proton);// { protonBackward_ = proton;};
-        void SetComEnergy(double energy) {comEnergy_ = energy;};
-        void SetVertex( edm::Ptr<reco::Vertex> vertex);// { CTPPSVertex_ = vertex;};
-        // void SetMissingMass(double missingMass) { missingMass_ = missingMass; }; 
-        bool ComputeDiProtonObject();
-        edm::Ptr<flashgg::Proton> GetProtonForward() const {return protonForward_;}
-        edm::Ptr<flashgg::Proton> GetProtonBackward() const {return protonBackward_;}
-        edm::Ptr<reco::Vertex> GetProtonVertex() const {return CTPPSVertex_;}
-        double GetRapidity() const {return rapidity_;}
-        double GetMissingMass() const {return missingMass_;}
-        bool IsDoubleTrackingHitArmForward() const {return doubleTrackingHitArmForward_;}
-        bool IsDoubleTrackingHitArmBackward() const {return doubleTrackingHitArmBackward_;}
+        DiProtonCandidate( edm::Ptr<flashgg::Proton>, edm::Ptr<flashgg::Proton> );
         ~DiProtonCandidate();
 
+        const flashgg::Proton *proton1() const { return proton1_.get(); }
+        const flashgg::Proton *proton2() const { return proton2_.get(); }
+
+        void setMass( float m, float m_err ) {
+            m_ = m;
+            m_err_ = m_err;
+        }
+        float mass() const { return m_; }
+        float massError() const { return m_err_; }
+
+        void setRapidity( float rap, float rap_err ) {
+            rap_ = rap;
+            rap_err_ = rap_err;
+        }
+        float rapidity() const { return rap_; }
+        float rapidityError() const { return rap_err_; }
+
+        bool operator <( const DiProtonCandidate &b ) const { return mass()<b.mass(); } //FIXME
+        bool operator >( const DiProtonCandidate &b ) const { return mass()>b.mass(); } //FIXME
+
+        DiProtonCandidate *clone() const { return ( new DiProtonCandidate( *this ) ); }
+
     private:
-    	bool doubleTrackingHitArmForward_;
-    	bool doubleTrackingHitArmBackward_;
-        bool vertexFound_;
+        
+        float m_, m_err_;
+        float rap_, rap_err_;
 
-        edm::Ptr<flashgg::Proton> protonForward_ ;
-        edm::Ptr<flashgg::Proton> protonBackward_;
-        edm::Ptr<reco::Vertex> CTPPSVertex_;
+        edm::Ptr<flashgg::Proton> proton1_;
+        edm::Ptr<flashgg::Proton> proton2_;
+    };
 
-        double missingMass_;
-        double rapidity_   ;
-        double comEnergy_  ;
-        virtual bool overlap( const Candidate & ) const;
-
-	};
 }
 
+
 #endif
+// Local Variables:
+// mode:c++
+// indent-tabs-mode:nil
+// tab-width:4
+// c-basic-offset:4
+// End:
+// vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
+

@@ -1,5 +1,5 @@
-
 #include "FWCore/Framework/interface/EDProducer.h"
+#include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/Utilities/interface/InputTag.h"
 #include "DataFormats/Common/interface/Handle.h"
@@ -7,18 +7,9 @@
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/Utilities/interface/EDMException.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
-#include "flashgg/DataFormats/interface/Proton.h"
-#include "flashgg/DataFormats/interface/DiProtonCandidate.h"
-#include "flashgg/DataFormats/interface/Photon.h"
-#include "flashgg/DataFormats/interface/DiPhotonCandidate.h"
-#include "flashgg/DataFormats/interface/DiProtonDiPhoton.h"
-// // #include "flashgg/MicroAOD/interface/ProtonIdUtils.h"
-#include "DataFormats/VertexReco/interface/Vertex.h"
-// // #include "flashgg/MicroAOD/interface/VertexSelectorBase.h"
-// // #include "DataFormats/PatCandidates/interface/PackedCandidate.h"
-// // #include "flashgg/DataFormats/interface/VertexCandidateMap.h"
-// // #include "DataFormats/EgammaCandidates/interface/Conversion.h"
-// // #include "DataFormats/BeamSpot/interface/BeamSpot.h"
+#include "flashgg/DataFormats/interface/DiProtonDiPhotonCandidate.h"
+
+#include <map>
 
 using namespace edm;
 using namespace std;
@@ -32,53 +23,46 @@ namespace flashgg {
         DiProtonDiPhotonProducer( const ParameterSet & );
     private:
         void produce( Event &, const EventSetup & ) override;
-        EDGetTokenT<View<flashgg::DiProtonCandidate> > diProtonToken_;
-        EDGetTokenT<View<flashgg::DiPhotonCandidate> > diPhotonToken_;
-        double DeltaMass_;
-        double DeltaEta_;
-
+        EDGetTokenT<View<flashgg::DiProtonCandidate> > diprotonToken_;
+        EDGetTokenT<View<flashgg::DiPhotonCandidate> > diphotonToken_;
     };
 
     DiProtonDiPhotonProducer::DiProtonDiPhotonProducer( const ParameterSet &iConfig ) :
-        diProtonToken_( consumes<View<flashgg::DiProtonCandidate> >( iConfig.getParameter<InputTag> ( "DiProtonTag" ) ) ),
-        diPhotonToken_( consumes<View<flashgg::DiPhotonCandidate> >( iConfig.getParameter<InputTag> ( "DiPhotonTag" ) ) )
-        // DeltaMass_(iConfig.getParameter<double> ( "DeltaMass" ) ),
-        // DeltaEta_(iConfig.getParameter<double> ( "DeltaEta" ) )
+        diprotonToken_( consumes<View<flashgg::DiProtonCandidate> >( iConfig.getParameter<InputTag> ( "DiProtonTag" ) ) ),
+        diphotonToken_( consumes<View<flashgg::DiPhotonCandidate> >( iConfig.getParameter<InputTag> ( "DiPhotonTag" ) ) )
     {
-        produces<vector<flashgg::DiProtonDiPhoton> >();
+        produces<vector<flashgg::DiProtonDiPhotonCandidate> >();
     }
 
     void DiProtonDiPhotonProducer::produce( Event &evt, const EventSetup & )
     {
+        Handle<View<flashgg::DiProtonCandidate> > dipr;
+        evt.getByToken( diprotonToken_, dipr );
 
-        Handle<View<flashgg::DiProtonCandidate> > diProtons;
-        evt.getByToken( diProtonToken_, diProtons );
+        Handle<View<flashgg::DiPhotonCandidate> > diph;
+        evt.getByToken( diphotonToken_, diph );
 
-        Handle<View<flashgg::DiPhotonCandidate> > diPhotons;
-        evt.getByToken( diPhotonToken_, diPhotons );
+        auto_ptr<vector<DiProtonDiPhotonCandidate> > diProtonPhotonColl( new vector<DiProtonDiPhotonCandidate> );
 
-        auto_ptr<vector<DiProtonDiPhoton> > diProtonDiPhotonColl( new vector<DiProtonDiPhoton> );
+        for( unsigned int i = 0 ; i < dipr->size() ; i++ ) {
+            Ptr<flashgg::DiProtonCandidate> dpr = dipr->ptrAt( i );
 
-        for( unsigned int i = 0 ; i < diProtons->size() ; i++ ) {
+            for( unsigned int j = 0 ; j < diph->size() ; j++ ) {
+                Ptr<flashgg::DiPhotonCandidate> dph = diph->ptrAt( j );
 
-            Ptr<flashgg::DiProtonCandidate> diPro = diProtons->ptrAt( i );
+                DiProtonDiPhotonCandidate dipropho( dpr, dph );
 
-            for( unsigned int j = 0 ; j < diPhotons->size() ; j++ ) {
-
-                Ptr<flashgg::DiPhotonCandidate> diPho = diPhotons->ptrAt( j );
-
-                DiProtonDiPhoton diProDiPho(diPho,diPro);
-
-                diProtonDiPhotonColl->push_back( diProDiPho );
-                cout<<diProDiPho.GetDeltaMass() <<endl;
+                // store the diproton/diphoton into the collection
+                diProtonPhotonColl->push_back( dipropho );
             }
         }
+        // Sort the final collection (descending) and put it in the event
+        std::sort( diProtonPhotonColl->begin(), diProtonPhotonColl->end(), greater<DiProtonDiPhotonCandidate>() );
 
-
-
-        evt.put( diProtonDiPhotonColl );
+        evt.put( diProtonPhotonColl );
     }
 }
+
 typedef flashgg::DiProtonDiPhotonProducer FlashggDiProtonDiPhotonProducer;
 DEFINE_FWK_MODULE( FlashggDiProtonDiPhotonProducer );
 // Local Variables:

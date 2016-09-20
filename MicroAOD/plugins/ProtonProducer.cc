@@ -1,92 +1,66 @@
-
+// system include files
+#include <memory>
+// user include files
+#include "DataFormats/Common/interface/Handle.h"
+#include "DataFormats/Common/interface/View.h"
+#include "DataFormats/Common/interface/DetSetVector.h"
+#include "FWCore/Framework/interface/Frameworkfwd.h"
 #include "FWCore/Framework/interface/EDProducer.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/Utilities/interface/InputTag.h"
-#include "DataFormats/Common/interface/Handle.h"
-#include "FWCore/Framework/interface/Event.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
-// #include "DataFormats/EgammaReco/interface/SuperClusterFwd.h"
-// #include "RecoEcal/EgammaCoreTools/interface/EcalClusterLazyTools.h"
-// #include "DataFormats/VertexReco/interface/Vertex.h"
-// #include "DataFormats/PatCandidates/interface/Photon.h"
+
+#include "DataFormats/CTPPSReco/interface/Proton.h"
 #include "flashgg/DataFormats/interface/Proton.h"
-// #include "flashgg/DataFormats/interface/GenPhotonExtra.h"
-// #include "flashgg/DataFormats/interface/VertexCandidateMap.h"
-// #include "flashgg/MicroAOD/interface/PhotonIdUtils.h"
-// #include "DataFormats/PatCandidates/interface/PackedGenParticle.h"
-// #include "HiggsAnalysis/GBRLikelihoodEGTools/interface/EGEnergyCorrectorSemiParm.h"
-// #include "DataFormats/PatCandidates/interface/Electron.h"
-// #include "RecoEgamma/EgammaTools/interface/ConversionTools.h"
-#include "flashgg/MicroAOD/interface/IsolationAlgoBase.h"
-//PPS
-#include "FastSimulation/PPSFastObjects/interface/PPSSpectrometer.h"
-#include "FastSimulation/PPSFastObjects/interface/PPSGenData.h"
-#include "FastSimulation/PPSFastObjects/interface/PPSSimData.h"
-#include "FastSimulation/PPSFastObjects/interface/PPSRecoData.h"
-#include "FastSimulation/PPSFastObjects/interface/PPSGenVertex.h"
-#include "FastSimulation/PPSFastObjects/interface/PPSRecoVertex.h"
 
 using namespace std;
 using namespace edm;
-using reco::PFCandidate;
+
+#include <iostream>
 
 namespace flashgg {
 
-    class ProtonProducer : public EDProducer
+    class ProtonProducer : public edm::EDProducer
     {
-
     public:
-        ProtonProducer( const ParameterSet & );
-    private:
-        void produce( Event &, const EventSetup & ) override;
-        //edm::EDGetTokenT<PPSSpectrometer<PPSGenData> > tokGenPPS;
-        edm::EDGetTokenT<PPSSpectrometer<PPSRecoData> > tokRecoPPS;
+        ProtonProducer( const edm::ParameterSet & );
+        ~ProtonProducer();
 
+    private:
+        void produce( edm::Event &, const edm::EventSetup & );
+
+        edm::EDGetTokenT<vector<reco::Proton> > protonsToken_;
 
     };
 
-
-    ProtonProducer::ProtonProducer( const ParameterSet &iConfig )
+    ProtonProducer::ProtonProducer( const ParameterSet &iConfig ):
+        protonsToken_( consumes<vector<reco::Proton> >( iConfig.getParameter<InputTag>( "protonTag" ) ) )
     {
-        //tokGenPPS = consumes<PPSSpectrometer<PPSGenData> >(edm::InputTag("ppssim","PPSGen"));
-        tokRecoPPS = consumes<PPSSpectrometer<PPSRecoData> >(edm::InputTag("ppssim","PPSReco"));
         produces<vector<flashgg::Proton> >();
-
     }
 
-    void ProtonProducer::produce( Event &evt, const EventSetup &iSetup )
+    ProtonProducer::~ProtonProducer() {}
+
+    void ProtonProducer::produce( Event &evt, const EventSetup & )
     {
+        Handle<vector<reco::Proton> >  protons;
+        evt.getByToken( protonsToken_, protons );
 
-        auto_ptr<vector<flashgg::Proton> > protonColl( new vector<flashgg::Proton> );
+        std::auto_ptr<vector<flashgg::Proton> > protonColl( new vector<flashgg::Proton> );
 
-
-        Handle<PPSSpectrometer<PPSRecoData> > recoPPS;
-        evt.getByToken(tokRecoPPS,recoPPS);
-        short direction = 1;
-        for(size_t iArmF=0; iArmF<recoPPS->ArmF.Tracks.size(); ++iArmF){
-            flashgg::Proton protonArmF = Proton(recoPPS->ArmF.Tracks.at(iArmF));
-            cout<<recoPPS->ArmF.Tracks.at(iArmF).xi<<endl;
-            protonArmF.SetDirection(direction);
-            protonColl->push_back(protonArmF);
+        for ( vector<reco::Proton>::const_iterator p = protons->begin(); p < protons->end(); p++ ) {
+            if (!p->isValid()) continue;
+            protonColl->push_back( flashgg::Proton( *p ) );
         }
 
-        direction = -1;
-        for(size_t iArmB=0; iArmB<recoPPS->ArmB.Tracks.size(); ++iArmB){
-            flashgg::Proton protonArmB = Proton(recoPPS->ArmB.Tracks.at(iArmB));
-            protonArmB.SetDirection(direction);
-            protonColl->push_back(protonArmB);
-        }
-
-        evt.put(protonColl);
-
+        evt.put( protonColl );
     }
 }
 
-
-
 typedef flashgg::ProtonProducer FlashggProtonProducer;
 DEFINE_FWK_MODULE( FlashggProtonProducer );
+
 // Local Variables:
 // mode:c++
 // indent-tabs-mode:nil

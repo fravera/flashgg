@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
 flashggDiProtons = cms.EDProducer('FlashggDiProtonProducer',
-                                  ProtonTag              = cms.InputTag('flashggProtons'),
-                                  ComEnergy              = cms.double(13000.)
+                                  ProtonTag = cms.InputTag('flashggProtons'),
+                                  SqrtS     = cms.double( 13.0 ),
                                   )

@@ -47,3 +47,4 @@ flashggMicroAODSequence = cms.Sequence(eventCount#+weightsCount
                                        +flashggProtons * flashggDiProtons
                                        +flashggDiProtonDiPhoton
                                        )
+
