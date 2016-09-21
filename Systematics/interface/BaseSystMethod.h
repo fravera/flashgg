@@ -11,6 +11,7 @@
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/EventSetup.h"
 #include "FWCore/Framework/interface/ConsumesCollector.h"
+#include "flashgg/DataFormats/interface/Met.h"
 
 namespace flashgg {
 
@@ -107,6 +108,8 @@ typedef FlashggSystematicMethodsFactory<flashgg::Jet, int > FlashggSystematicJet
 typedef FlashggSystematicMethodsFactory<flashgg::Jet, std::pair<int,int> > FlashggSystematicJetMethodsFactory2D;
 typedef FlashggSystematicMethodsFactory<flashgg::DiPhotonTagBase, int> FlashggSystematicTagMethodsFactory;
 typedef FlashggSystematicMethodsFactory<flashgg::DiPhotonTagBase, std::pair<int,int> > FlashggSystematicTagMethodsFactory2D;
+typedef FlashggSystematicMethodsFactory<flashgg::Met, int > FlashggSystematicMetMethodsFactory;
+typedef FlashggSystematicMethodsFactory<flashgg::Met, std::pair<int,int> > FlashggSystematicMetMethodsFactory2D;
 //typedef edmplugin::PluginFactory< flashgg::BaseSystMethod<flashgg::Photon, int>* ( const edm::ParameterSet & ) > FlashggSystematicPhotonMethodsFactory;
 //typedef edmplugin::PluginFactory< flashgg::BaseSystMethod<flashgg::Photon,float>* ( const edm::ParameterSet&) > FlashggSystematicPhotonMethodsFactory;
 //typedef edmplugin::PluginFactory< flashgg::BaseSystMethod<flashgg::DiPhotonCandidate>* ( const edm::ParameterSet&) > FlashggSystematicDiPhotonMethodsFactory;

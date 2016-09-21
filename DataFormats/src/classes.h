@@ -15,6 +15,7 @@
 #include "flashgg/DataFormats/interface/Muon.h"
 #include "flashgg/DataFormats/interface/GenPhotonExtra.h"
 #include "flashgg/DataFormats/interface/Jet.h"
+#include "flashgg/DataFormats/interface/Met.h"
 #include "flashgg/DataFormats/interface/Photon.h"
 #include "flashgg/DataFormats/interface/Proton.h"
 #include "flashgg/DataFormats/interface/SinglePhotonView.h"
@@ -36,6 +37,7 @@
 #include "flashgg/DataFormats/interface/PhotonJetCandidate.h" //Martina
 #include "flashgg/DataFormats/interface/TagTruthBase.h"
 #include "flashgg/DataFormats/interface/VBFTagTruth.h"
+#include "flashgg/DataFormats/interface/VHTagTruth.h"
 #include "flashgg/DataFormats/interface/WeightedObject.h"
 #include "flashgg/DataFormats/interface/PDFWeightObject.h"
 #include "flashgg/DataFormats/interface/ZPlusJetTag.h"
@@ -278,6 +280,10 @@ namespace  {
         std::vector<flashgg::VBFTagTruth> vec_vbftt;
         edm::Wrapper<std::vector<flashgg::VBFTagTruth> > wrp_vec_vbftt;
 
+        flashgg::VHTagTruth vhtt;
+        std::vector<flashgg::VHTagTruth> vec_vhtt;
+        edm::Wrapper<std::vector<flashgg::VHTagTruth> > wrp_vec_vhtt;
+ 
         flashgg::VHLooseTag vhl;
         std::vector<flashgg::VHLooseTag> vec_vhl;
         edm::Wrapper<std::vector<flashgg::VHLooseTag> > wrp_vec_vhl;
